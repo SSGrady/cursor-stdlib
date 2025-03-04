@@ -1,8 +1,9 @@
 ---
 description: Rule for displaying git log after each commit
-globs: *
+globs: ["*"]
 alwaysApply: true
 ---
+
 # Git Log Display
 
 Rule for automatically displaying git log after each commit to show the commit history.
@@ -12,7 +13,7 @@ name: git-log-display
 description: Display git log after each commit to show commit history
 filters:
   - type: event
-    pattern: "cursor_edit"
+    pattern: "cursor_edit|git_commit"
   - type: file_change
     pattern: "*"
 
@@ -58,4 +59,4 @@ examples:
 metadata:
   priority: high
   version: 1.0
-</rule>
+</rule> 

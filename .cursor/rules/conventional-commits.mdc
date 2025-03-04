@@ -13,7 +13,7 @@ name: conventional_commits
 description: Automatically commit changes made by CursorAI using conventional commits format
 filters:
   - type: event
-    pattern: "cursor_edit"
+    pattern: "cursor_edit|git_commit"
   - type: file_change
     pattern: "*"
 
