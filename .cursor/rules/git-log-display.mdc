@@ -1,0 +1,61 @@
+---
+description: Rule for displaying git log after each commit
+globs: *
+alwaysApply: true
+---
+# Git Log Display
+
+Rule for automatically displaying git log after each commit to show the commit history.
+
+<rule>
+name: git-log-display
+description: Display git log after each commit to show commit history
+filters:
+  - type: event
+    pattern: "cursor_edit"
+  - type: file_change
+    pattern: "*"
+
+actions:
+  - type: execute
+    command: |
+      # Wait a moment for the commit to complete
+      sleep 0.5
+      
+      # Display git log with graph and all branches
+      echo "📊 Git Commit History:"
+      git log --oneline --graph --all | cat
+
+  - type: suggest
+    message: |
+      After each commit, the git log will be displayed showing:
+      - Commit history in a graph format
+      - All branches and their relationships
+      - One-line commit messages
+      
+      This helps visualize the commit history and branch structure.
+
+examples:
+  - input: |
+      # After a commit is made
+      git commit -m "feat: add new feature"
+    output: |
+      📊 Git Commit History:
+      * 4ef0750 (HEAD -> main) feat(.cursor-rules): add cursor rules location rule
+      * 3b6d2cd feat(.cursor-rules): add conventional commits rule
+      * 2a1b3c4 (origin/main) Initial commit
+
+  - input: |
+      # After another commit
+      git commit -m "fix: resolve bug"
+    output: |
+      📊 Git Commit History:
+      * 5f8g9h0 (HEAD -> main) fix: resolve bug
+      * 4ef0750 feat(.cursor-rules): add cursor rules location rule
+      * 3b6d2cd feat(.cursor-rules): add conventional commits rule
+      * 2a1b3c4 (origin/main) Initial commit
+
+metadata:
+  priority: high
+  version: 1.0
+</rule>
